@@ -1,5 +1,6 @@
 {
   "compatibleVersion": 3,
+  "identifier": "com.sketchapp.plugins.qa-info",
   "bundleVersion": 1,
   "icon": "icon.png",
   "commands": [
