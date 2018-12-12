@@ -9,12 +9,19 @@
       "identifier": "my-command-identifier",
       "script": "./my-command.js",
       "shortcut" : "control i"
+    },
+    {
+      "name": "QA Info (No Plugins)",
+      "identifier": "qa-info-no-plugins",
+      "script": "./michal.js",
+      "shortcut" : "control shift i"
     }
   ],
   "menu": {
     "title": "QA Info",
     "items": [
-      "my-command-identifier"
+      "my-command-identifier",
+      "qa-info-no-plugins"
     ]
   }
 }
