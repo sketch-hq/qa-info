@@ -1,0 +1,19 @@
+{
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
+  "icon": "icon.png",
+  "commands": [
+    {
+      "name": "QA Info",
+      "identifier": "my-command-identifier",
+      "script": "./my-command.js",
+      "shortcut" : "control i"
+    }
+  ],
+  "menu": {
+    "title": "QA Info",
+    "items": [
+      "my-command-identifier"
+    ]
+  }
+}
