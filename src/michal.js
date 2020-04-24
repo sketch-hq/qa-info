@@ -2,10 +2,10 @@ const sketch = require('sketch')
 // documentation: https://developer.sketchapp.com/reference/api/
 
 export default function(context) {
-  var api_v1 = context.api()
+  var appMetadata = MSApplicationMetadata.metadata()
   var sysReport = "```\n"
-  sysReport += "Build version: " + api_v1.full_version + "\n"
-  sysReport += "Build variant: " + api_v1._metadata.variant + "\n"
+  sysReport += "Build version: " + appMetadata.build + "\n"
+  sysReport += "Build variant: " + appMetadata.variant + "\n"
   sysReport += "OS version: " + NSProcessInfo.processInfo().operatingSystemVersionString() + "\n"
   var cloudPlatform = SCKAPIEnvironment.current().name()
   var cloudEnabled = MSCloudAction.cloudEnabled()
