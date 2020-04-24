@@ -2,7 +2,7 @@
   "name": "qainfo",
   "description": "Copies some useful info to the clipboard for troubleshooting",
   "author": "Ale M <ale@sketchapp.com>",
-  "repository": "https://github.com/BohemianCoding/qa-info.git",
+  "repository": "https://github.com/sketch-hq/qa-info.git",
   "license": "MIT",
   "version": "1.4.5",
   "engines": {
