@@ -6,21 +6,23 @@
   "commands": [
     {
       "name": "QA Info",
-      "identifier": "my-command-identifier",
-      "script": "./my-command.js",
-      "shortcut" : "control i"
+      "identifier": "qa-info",
+      "script": "./qa-info.js",
+      "shortcut" : "control i",
+      "handler": "onQAInfo"
     },
     {
       "name": "QA Info (No Plugins)",
       "identifier": "qa-info-no-plugins",
-      "script": "./michal.js",
-      "shortcut" : "control shift i"
+      "script": "./qa-info.js",
+      "shortcut" : "control shift i",
+      "handler": "onQAInfoNoPlugins"
     }
   ],
   "menu": {
     "title": "QA Info",
     "items": [
-      "my-command-identifier",
+      "qa-info",
       "qa-info-no-plugins"
     ]
   }

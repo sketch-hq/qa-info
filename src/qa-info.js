@@ -1,12 +1,22 @@
 const sketch = require('sketch')
 // documentation: https://developer.sketchapp.com/reference/api/
 
-export default function(context) {
+export function onQAInfo(context) {
+  console.log(`onQAInfo`);
+  QAInfo(context, true)
+}
+
+export function onQAInfoNoPlugins(context) {
+  console.log(`onQAInfoNoPlugins`);
+  QAInfo(context, false)
+}
+
+function QAInfo(context, showPlugins) {
   var appMetadata = MSApplicationMetadata.metadata()
   var sysReport = "```\n"
-  sysReport += "Build version: " + appMetadata.build + "\n"
-  sysReport += "Build variant: " + appMetadata.variant + "\n"
-  sysReport += "OS version: " + NSProcessInfo.processInfo().operatingSystemVersionString() + "\n"
+  sysReport += `Build version: ${appMetadata.appVersion} (${appMetadata.build})\n`
+  sysReport += `Build variant: ${appMetadata.variant}\n`
+  sysReport += `OS version: ${NSProcessInfo.processInfo().operatingSystemVersionString()}\n`
   var cloudPlatform = SCKAPIEnvironment.current().name()
   var cloudEnabled = MSCloudAction.cloudEnabled()
   if (!cloudEnabled) {
@@ -14,27 +24,31 @@ export default function(context) {
   }
   sysReport += "Cloud: " + cloudPlatform + "\n"
   sysReport += "```\n"
-  sysReport += "### Plugins:\n"
 
-  var plugins = NSApplication.sharedApplication().delegate().pluginManager().plugins()
+  if (showPlugins) {
+    sysReport += "\n### Plugins:\n"
 
-  var enabledPlugins = []
-  var disabledPlugins = []
+    var plugins = NSApplication.sharedApplication().delegate().pluginManager().plugins()
 
-  for (var p in plugins) {
-    var plugin = plugins.objectForKey(p)
-    if (plugin.isEnabled()) {
-      enabledPlugins.push(plugin)
-    } else {
-      disabledPlugins.push(plugin)
+    var enabledPlugins = []
+    var disabledPlugins = []
+
+    for (var p in plugins) {
+      var plugin = plugins.objectForKey(p)
+      if (plugin.isEnabled()) {
+        enabledPlugins.push(plugin)
+      } else {
+        disabledPlugins.push(plugin)
+      }
     }
+
+    enabledPlugins.forEach(plugin => {
+      sysReport += metadataForPlugin(plugin)
+    })
+    disabledPlugins.forEach(plugin => {
+      sysReport += metadataForPlugin(plugin)
+    })
   }
-  enabledPlugins.forEach(plugin => {
-    sysReport += metadataForPlugin(plugin)
-  })
-  disabledPlugins.forEach(plugin => {
-    sysReport += metadataForPlugin(plugin)
-  })
 
   if (sysReport) {
     var pasteBoard = NSPasteboard.generalPasteboard()
@@ -45,7 +59,6 @@ export default function(context) {
     sketch.UI.message("Uh, oh, something’s wrong here!")
   }
 }
-
 function websiteFromAppcastURL(url){
   if (url == null) {
     return url
@@ -56,7 +69,7 @@ function websiteFromAppcastURL(url){
   if ( url == "https://raw.githubusercontent.com//master/.appcast.xml" ) {
     return null
   } else {
-    if (url.indexOf('githubusercontent') != -1) {
+    if (url.includes('githubusercontent')) {
       // Plugin is hosted on GitHub
       var user = url.split('/')[3]
       var project = url.split('/')[4]
@@ -68,7 +81,7 @@ function websiteFromAppcastURL(url){
 }
 
 function metadataForPlugin(plugin){
-  var returnString = `- ${(plugin.isEnabled() ? "✅" : "❌")} ${plugin.name()} (${plugin.identifier()}) (v${plugin.version()})`
+  var returnString = `- ${(plugin.isEnabled() ? "🔘" : "⚪️")} ${plugin.name()} (${plugin.identifier()}) (v${plugin.version()})`
   var pluginURL = plugin.homepageURL() || websiteFromAppcastURL(plugin.appcastURL())
   if (pluginURL != null) {
     returnString += ` [Website](${pluginURL})`
