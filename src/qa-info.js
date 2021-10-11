@@ -12,7 +12,7 @@ export function onQAInfoNoPlugins(context) {
 }
 
 function QAInfo(context, showPlugins) {
-  var appMetadata = MSApplicationMetadata.metadata()
+  var appMetadata = BCSketchInfo.shared().metadata()
   var sysReport = "```\n"
   sysReport += `Build version: ${appMetadata.appVersion} (${appMetadata.build})\n`
   sysReport += `Build variant: ${appMetadata.variant}\n`
