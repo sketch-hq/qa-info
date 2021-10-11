@@ -18,7 +18,7 @@ function QAInfo(context, showPlugins) {
   sysReport += `Build variant: ${appMetadata.variant}\n`
   sysReport += `OS version: ${NSProcessInfo.processInfo().operatingSystemVersionString()}\n`
   var cloudPlatform = SCKAPIEnvironment.current().name()
-  var cloudEnabled = MSCloudAction.cloudEnabled()
+  var cloudEnabled = MSCloudUtilities.cloudEnabled()
   if (!cloudEnabled) {
     cloudPlatform = "(disabled)"
   }
