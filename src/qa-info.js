@@ -1,5 +1,5 @@
 const sketch = require('sketch')
-// documentation: https://developer.sketchapp.com/reference/api/
+// documentation: https://developer.sketch.com/reference/api/
 
 export function onQAInfo(context) {
   console.log(`onQAInfo`);
