@@ -1,5 +1,5 @@
 const sketch = require('sketch')
-// documentation: https://developer.sketchapp.com/reference/api/
+// documentation: https://developer.sketch.com/reference/api/
 
 export function onQAInfo(context) {
   console.log(`onQAInfo`);
@@ -12,13 +12,13 @@ export function onQAInfoNoPlugins(context) {
 }
 
 function QAInfo(context, showPlugins) {
-  var appMetadata = MSApplicationMetadata.metadata()
+  var appMetadata = BCSketchInfo.shared().metadata()
   var sysReport = "```\n"
   sysReport += `Build version: ${appMetadata.appVersion} (${appMetadata.build})\n`
   sysReport += `Build variant: ${appMetadata.variant}\n`
   sysReport += `OS version: ${NSProcessInfo.processInfo().operatingSystemVersionString()}\n`
   var cloudPlatform = SCKAPIEnvironment.current().name()
-  var cloudEnabled = MSCloudAction.cloudEnabled()
+  var cloudEnabled = MSCloudUtilities.cloudEnabled()
   if (!cloudEnabled) {
     cloudPlatform = "(disabled)"
   }
